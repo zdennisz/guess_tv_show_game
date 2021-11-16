@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TvShowName from "./components/TvShowName/TvShowName";
 import useKeyPress from "./components/hooks/useKeyPress";
@@ -8,26 +8,31 @@ import LettersInput from "./components/LettersInput/LettersInput";
 function App() {
 	const keyPress = useKeyPress();
 	const [lifePoints, setLifePoints] = useState(3);
-	const [score, setScore] = useState(0);
+	const [rightGuesses, setRightGuesses] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
+	const [userWord, setUserWord] = useState("");
 	const fullWord = "Henry";
-	const gussedWord = "Henry";
+
 	const [showHint, setShowHint] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [hintPressedAmount, setHintPressedAmount] = useState(0);
 
 	const checkGuessHandler = () => {
-		const isIncludes = fullWord.includes(keyPress.key);
-		if (!isIncludes && lifePoints === 1) {
+		const isEqualToFullWord = fullWord === userWord;
+		if (!isEqualToFullWord && lifePoints === 1) {
 			setGameOver(true);
-		} else if (!isIncludes && lifePoints > 1) {
+		} else if (!isEqualToFullWord && lifePoints > 1) {
 			setLifePoints((state) => state - 1);
+		} else if (isEqualToFullWord) {
+			setRightGuesses((state) => state + 1);
 		}
 	};
+
 	const restartGameHandler = () => {
 		setGameOver(false);
 		setLifePoints(3);
-		setScore(0);
+		setRightGuesses(0);
+		setUserWord("");
 	};
 
 	const showHintHandler = () => {
@@ -40,8 +45,12 @@ function App() {
 	const showStatisticsHandler = () => {
 		setShowModal((state) => !state);
 	};
+	useEffect(() => {
+		if (keyPress.key !== " ") {
+			setUserWord((state) => state + keyPress.key);
+		}
+	}, [keyPress]);
 
-	console.log("keyPress.key", keyPress);
 	return (
 		<div className='App'>
 			{gameOver ? (
@@ -54,7 +63,7 @@ function App() {
 					<TvShowName tvShowName={"Henry"} />
 					<div>
 						<LettersInput
-							selectedLetter={keyPress.key === " " ? " " : keyPress.key}
+							selectedLetter={keyPress.key === " " ? " " : userWord}
 						/>
 						<div className='button_container'>
 							<button onClick={checkGuessHandler}>Check the guess</button>
@@ -64,7 +73,7 @@ function App() {
 						{showHint && <Hint hint={"bla bla some hint"} />}
 						{showModal && (
 							<Statistics
-								amountOfRightGusses={score}
+								amountOfRightGusses={rightGuesses}
 								amountOfWrongGusses={lifePoints}
 								amountOftimesPressedHint={hintPressedAmount}
 								onClose={showStatisticsHandler}
