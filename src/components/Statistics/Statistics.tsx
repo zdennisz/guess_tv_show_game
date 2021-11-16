@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Statistics.css";
 declare interface StatisticsProps {
 	amountOfRightGusses: number;
@@ -13,18 +13,17 @@ const Statistics = ({
 	amountOftimesPressedHint,
 	onClose,
 }: StatisticsProps) => {
-	const closeOnEscapeKeyDown = (e: any) => {
-		if ((e.charCode || e.keyCode) === 27) {
-			onClose();
-		}
-	};
-
 	useEffect(() => {
+		const closeOnEscapeKeyDown = (e: any) => {
+			if ((e.charCode || e.keyCode) === 27) {
+				onClose();
+			}
+		};
 		window.addEventListener("keydown", closeOnEscapeKeyDown);
 		return () => {
 			window.removeEventListener("keydown", closeOnEscapeKeyDown);
 		};
-	}, []);
+	}, [onClose]);
 
 	return (
 		<div className='modal'>
