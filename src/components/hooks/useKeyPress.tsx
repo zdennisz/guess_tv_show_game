@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 declare interface useKeyPressProps {
-	key: String;
+	key: string;
 }
 
 const useKeyPress = (): useKeyPressProps => {
