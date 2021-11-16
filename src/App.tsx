@@ -4,11 +4,11 @@ import TvShowName from "./components/TvShowName/TvShowName";
 import useKeyPress from "./components/hooks/useKeyPress";
 import Hint from "./components/Hint/Hint";
 import Statistics from "./components/Statistics/Statistics";
-import LettersInput from "./components/LettersInput/LettersInput";
+import CardInput from "./components/CardInput/CardInput";
 import { getMovies, scrambleTvShowName } from "./utils/helper";
 import GameOver from "./components/GameOver/GameOver";
 
-declare interface MovieInfo {
+declare interface TvShowsInfo {
 	poster_path: string;
 	popularity: number;
 	id: number;
@@ -33,6 +33,7 @@ function App() {
 	const keyPress = useKeyPress();
 	const [lifePoints, setLifePoints] = useState(3);
 	const [rightGuesses, setRightGuesses] = useState(0);
+	const [wrongGuesses, setWrongGuesses] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
 	const [selectedShow, setSelectedShow] = useState({ name: "", overview: "" });
 	const [pageNumber, setPageNumber] = useState(1);
@@ -48,6 +49,7 @@ function App() {
 			setGameOver(true);
 		} else if (!isEqualToFullWord && lifePoints > 1) {
 			setLifePoints((state) => state - 1);
+			setWrongGuesses((state) => state + 1);
 		} else if (isEqualToFullWord) {
 			setRightGuesses((state) => state + 1);
 		}
@@ -58,6 +60,13 @@ function App() {
 		setLifePoints(3);
 		setRightGuesses(0);
 		setSelectedShow({ name: "", overview: "" });
+	};
+	const removeShowFromList = (movies: never[]) => {
+		const show = movies.shift();
+		if (show) {
+			const { name, overview } = show as TvShowInfo;
+			setSelectedShow({ name, overview });
+		}
 	};
 
 	const showHintHandler = () => {
@@ -87,7 +96,7 @@ function App() {
 		if (movieList.length === 0) {
 			getMovies(pageNumber)
 				.then((data) => {
-					const filterData = data.map((movieInfo: MovieInfo) => ({
+					const filterData = data.map((movieInfo: TvShowsInfo) => ({
 						overview: movieInfo.overview,
 						name: movieInfo.name,
 					}));
@@ -103,11 +112,7 @@ function App() {
 
 	useEffect(() => {
 		if (movieList.length > 0) {
-			const show = movieList.shift();
-			if (show) {
-				const { name, overview } = show as TvShowInfo;
-				setSelectedShow({ name, overview });
-			}
+			removeShowFromList(movieList);
 		}
 	}, [movieList]);
 
@@ -118,20 +123,24 @@ function App() {
 			) : (
 				<>
 					<TvShowName tvShowName={scrambleTvShowName(selectedShow.name)} />
-					<div>
-						<LettersInput
-							selectedLetter={keyPress.key === " " ? " " : userWord}
-						/>
+					<div className='user_input_containers'>
+						<CardInput selectedLetter={keyPress.key === " " ? " " : userWord} />
 						<div className='button_container'>
-							<button onClick={checkGuessHandler}>Check the guess</button>
-							<button onClick={showHintHandler}>Hint</button>
-							<button onClick={showStatisticsHandler}>Statistics</button>
+							<button className='button' onClick={checkGuessHandler}>
+								Check the guess
+							</button>
+							<button className='button' onClick={showHintHandler}>
+								Hint
+							</button>
+							<button className='button' onClick={showStatisticsHandler}>
+								Statistics
+							</button>
 						</div>
 						{showHint && <Hint hint={selectedShow.overview} />}
 						{showModal && (
 							<Statistics
 								amountOfRightGusses={rightGuesses}
-								amountOfWrongGusses={lifePoints}
+								amountOfWrongGusses={wrongGuesses}
 								amountOftimesPressedHint={hintPressedAmount}
 								onClose={showStatisticsHandler}
 							/>

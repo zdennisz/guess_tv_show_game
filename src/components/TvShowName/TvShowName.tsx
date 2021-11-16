@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-
+import "./TvShowName.css";
 declare interface TvShowNameProps {
-	tvShowName: String;
+	tvShowName: string;
 }
 
 const TvShowName = ({ tvShowName }: TvShowNameProps) => {
-	const [showName, setShowName] = useState<String>();
+	const [showName, setShowName] = useState<string>();
 
 	useEffect(() => {
 		if (tvShowName) {
@@ -13,7 +13,7 @@ const TvShowName = ({ tvShowName }: TvShowNameProps) => {
 		}
 	}, [tvShowName]);
 
-	return <div>{showName}</div>;
+	return <div className='tv_show'>{showName}</div>;
 };
 
 export default TvShowName;

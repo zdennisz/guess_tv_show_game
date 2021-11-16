@@ -1,18 +1,21 @@
-.letter_input {
-	min-height: 120px;
+.card_input {
 	height: 120px;
 	min-width: 120px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-weight: 700;
-	font-size: 64px;
-	box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.2);
+	font-size: 2vw;
+	box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2);
+	border-radius: 12px;
+	padding: 12px;
 }
-.letter_input_container {
+.card_input_container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-top: 16px;
 	margin-bottom: 16px;
+	flex-wrap: wrap;
+	max-width: 80vw;
 }

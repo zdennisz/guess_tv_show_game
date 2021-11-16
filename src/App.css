@@ -4,8 +4,20 @@
 
 .button_container {
 	display: flex;
-	height: 250px;
+	height: 150px;
+	width: fit-content;
 	flex-direction: column;
 	justify-content: space-around;
+	align-items: center;
+}
+
+.button {
+	width: 100%;
+}
+
+.user_input_containers {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 }
