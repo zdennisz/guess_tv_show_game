@@ -8,26 +8,7 @@ import CardInput from "./components/CardInput/CardInput";
 import { getMovies, scrambleTvShowName } from "./utils/helper";
 import GameOver from "./components/GameOver/GameOver";
 import Button from "./components/Button/Button";
-declare interface TvShowsInfo {
-	poster_path: string;
-	popularity: number;
-	id: number;
-	backdrop_path: string;
-	vote_average: number;
-	overview: string;
-	first_air_date: string;
-	origin_country: [];
-	genre_ids: [];
-	original_language: string;
-	vote_count: number;
-	name: string;
-	original_name: string;
-}
-
-declare interface TvShowInfo {
-	name: string;
-	overview: string;
-}
+import { ResponseTvShowInfo, SingleTvShow } from "./utils/types";
 
 function App() {
 	const keyPress = useKeyPress();
@@ -59,12 +40,13 @@ function App() {
 		setGameOver(false);
 		setLifePoints(3);
 		setRightGuesses(0);
-		setSelectedShow({ name: "", overview: "" });
+		removeShowFromList(movieList);
+		setUserWord("");
 	};
 	const removeShowFromList = (movies: never[]) => {
 		const show = movies.shift();
 		if (show) {
-			const { name, overview } = show as TvShowInfo;
+			const { name, overview } = show as SingleTvShow;
 			setSelectedShow({ name, overview });
 		}
 	};
@@ -81,7 +63,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		if (keyPress.key !== " ") {
+		if (keyPress.key !== "") {
 			if (keyPress.key === "Backspace") {
 				// Remove the last char
 				setUserWord((state) => state.substring(0, state.length - 1));
@@ -96,14 +78,14 @@ function App() {
 		if (movieList.length === 0) {
 			getMovies(pageNumber)
 				.then((data) => {
-					const filterData = data.map((movieInfo: TvShowsInfo) => ({
+					const filterData = data.map((movieInfo: ResponseTvShowInfo) => ({
 						overview: movieInfo.overview,
 						name: movieInfo.name,
 					}));
 					setMovieList(filterData);
 				})
 				.catch((failed) => {
-					console.log("fail", failed);
+					console.error("fail", failed);
 				});
 			// Increment page number
 			setPageNumber((state) => state + 1);
@@ -122,9 +104,10 @@ function App() {
 				<GameOver restartGameHandler={restartGameHandler} />
 			) : (
 				<>
+					<div>You have {lifePoints} life points left</div>
 					<TvShowName tvShowName={scrambleTvShowName(selectedShow.name)} />
 					<div className='user_input_containers'>
-						<CardInput selectedLetter={keyPress.key === " " ? " " : userWord} />
+						<CardInput selectedLetter={keyPress.key === "" ? "" : userWord} />
 						<div className='button_container'>
 							<Button
 								onClickHandler={checkGuessHandler}
