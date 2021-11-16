@@ -5,7 +5,7 @@ declare interface useKeyPressProps {
 }
 
 const useKeyPress = (): useKeyPressProps => {
-	const [keyPressed, setKeyPressed] = useState({ key: "" });
+	const [keyPressed, setKeyPressed] = useState({ key: " " });
 
 	useEffect(() => {
 		const upHandler = (e: any) => {

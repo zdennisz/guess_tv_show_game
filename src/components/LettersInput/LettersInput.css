@@ -1,0 +1,18 @@
+.letter_input {
+	min-height: 120px;
+	height: 120px;
+	width: 120px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 700;
+	font-size: 64px;
+	box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.letter_input_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
