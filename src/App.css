@@ -11,10 +11,6 @@
 	align-items: center;
 }
 
-.button {
-	width: 100%;
-}
-
 .user_input_containers {
 	display: flex;
 	flex-direction: column;

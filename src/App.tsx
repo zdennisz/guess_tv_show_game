@@ -7,7 +7,7 @@ import Statistics from "./components/Statistics/Statistics";
 import CardInput from "./components/CardInput/CardInput";
 import { getMovies, scrambleTvShowName } from "./utils/helper";
 import GameOver from "./components/GameOver/GameOver";
-
+import Button from "./components/Button/Button";
 declare interface TvShowsInfo {
 	poster_path: string;
 	popularity: number;
@@ -126,15 +126,15 @@ function App() {
 					<div className='user_input_containers'>
 						<CardInput selectedLetter={keyPress.key === " " ? " " : userWord} />
 						<div className='button_container'>
-							<button className='button' onClick={checkGuessHandler}>
-								Check the guess
-							</button>
-							<button className='button' onClick={showHintHandler}>
-								Hint
-							</button>
-							<button className='button' onClick={showStatisticsHandler}>
-								Statistics
-							</button>
+							<Button
+								onClickHandler={checkGuessHandler}
+								buttonTitle='Check the guess'
+							/>
+							<Button onClickHandler={showHintHandler} buttonTitle='Hint' />
+							<Button
+								onClickHandler={showStatisticsHandler}
+								buttonTitle='Stats'
+							/>
 						</div>
 						{showHint && <Hint hint={selectedShow.overview} />}
 						{showModal && (
