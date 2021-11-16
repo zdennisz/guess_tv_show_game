@@ -47,7 +47,11 @@ function App() {
 	};
 	useEffect(() => {
 		if (keyPress.key !== " ") {
-			setUserWord((state) => state + keyPress.key);
+			if (keyPress.key === "Backspace") {
+				setUserWord((state) => state.substring(0, state.length - 1));
+			} else {
+				setUserWord((state) => state + keyPress.key);
+			}
 		}
 	}, [keyPress]);
 
