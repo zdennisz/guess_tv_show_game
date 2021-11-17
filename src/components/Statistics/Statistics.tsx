@@ -32,7 +32,7 @@ const Statistics = ({
 				<div className='modal_body'>
 					{`  The amount of right guesses is ${amountOfRightGusses} 
                     	The amount of wrong guesses is ${amountOfWrongGusses} 
-                    	Amount of times pressed on hint button ${amountOftimesPressedHint}`}
+                    	The amount of hint button presses is ${amountOftimesPressedHint}`}
 				</div>
 				<div className='modal_footer'>
 					<button className='button' onClick={onClose}>
