@@ -13,12 +13,12 @@ export const getMovies = async (pagenumber: number) => {
 export const scrambleTvShowName = (name: string) => {
 	const scrambledWord = name.split("");
 	const newWord = scrambledWord.map((char, index) => {
-		if (index % 4 === 0) {
+		if (index % 4 === 0 && char !== " ") {
 			return "_";
 		} else {
 			return char;
 		}
 	});
 
-	return newWord.join(" ");
+	return newWord.join("");
 };
