@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./TvShowName.css";
 declare interface TvShowNameProps {
 	tvShowName: string;
 }
 
 const TvShowName = ({ tvShowName }: TvShowNameProps) => {
-	const [showName, setShowName] = useState<string>();
-
-	useEffect(() => {
-		if (tvShowName) {
-			setShowName(tvShowName);
-		}
-	}, [tvShowName]);
-
-	return <div className='tv_show'>{showName}</div>;
+	return <div className='tv_show'>{tvShowName}</div>;
 };
 
 export default TvShowName;
