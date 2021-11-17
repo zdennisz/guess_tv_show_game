@@ -1,13 +1,13 @@
 import React from "react";
 import "./CardInput.css";
 declare interface CardInputProps {
-	selectedLetter: string;
+	selectedWord: string;
 }
 
-const CardInput = ({ selectedLetter }: CardInputProps) => {
+const CardInput = ({ selectedWord }: CardInputProps) => {
 	return (
 		<div className='card_input_container'>
-			<div className='card_input'>{selectedLetter}</div>
+			<div className='card_input'>{selectedWord}</div>
 		</div>
 	);
 };

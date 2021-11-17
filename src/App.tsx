@@ -9,6 +9,7 @@ import { getMovies, scrambleTvShowName } from "./utils/helper";
 import GameOver from "./components/GameOver/GameOver";
 import Button from "./components/Button/Button";
 import { ResponseTvShowInfo, SingleTvShow } from "./utils/types";
+import Header from "./components/Header/Header";
 
 function App() {
 	const keyPress = useKeyPress();
@@ -104,10 +105,10 @@ function App() {
 				<GameOver restartGameHandler={restartGameHandler} />
 			) : (
 				<>
-					<div>You have {lifePoints} life points left</div>
+					<Header lifePoints={lifePoints} />
 					<TvShowName tvShowName={scrambleTvShowName(selectedShow.name)} />
 					<div className='user_input_containers'>
-						<CardInput selectedLetter={keyPress.key === "" ? "" : userWord} />
+						<CardInput selectedWord={userWord} />
 						<div className='button_container'>
 							<Button
 								onClickHandler={checkGuessHandler}
