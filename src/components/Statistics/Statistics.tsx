@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Button from "../Button/Button";
 import "./Statistics.css";
 declare interface StatisticsProps {
 	amountOfRightGusses: number;
@@ -28,16 +29,14 @@ const Statistics = ({
 	return (
 		<div className='modal'>
 			<div className='modal_content'>
-				<div className='modal-header'>Statistics</div>
+				<div className='modal_header'>Statistics</div>
 				<div className='modal_body'>
 					{`  The amount of right guesses is ${amountOfRightGusses} 
                     	The amount of wrong guesses is ${amountOfWrongGusses} 
-                    	The amount of hint button presses is ${amountOftimesPressedHint}`}
+                    	The amount of hint button presses ${amountOftimesPressedHint}`}
 				</div>
 				<div className='modal_footer'>
-					<button className='button' onClick={onClose}>
-						Close
-					</button>
+					<Button buttonTitle='Close' onClickHandler={onClose} />
 				</div>
 			</div>
 		</div>
