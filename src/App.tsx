@@ -105,7 +105,11 @@ function App() {
 				<GameOver restartGameHandler={restartGameHandler} />
 			) : (
 				<>
-					<Header lifePoints={lifePoints} />
+					<Header
+						lifePoints={lifePoints}
+						hintOnClickHandler={showHintHandler}
+						statsOnClickHandler={showStatisticsHandler}
+					/>
 					<TvShowName tvShowName={scrambleTvShowName(selectedShow.name)} />
 					<div className='user_input_containers'>
 						<CardInput selectedWord={userWord} />
@@ -113,11 +117,6 @@ function App() {
 							<Button
 								onClickHandler={checkGuessHandler}
 								buttonTitle='Check the guess'
-							/>
-							<Button onClickHandler={showHintHandler} buttonTitle='Hint' />
-							<Button
-								onClickHandler={showStatisticsHandler}
-								buttonTitle='Stats'
 							/>
 						</div>
 						{showHint && <Hint hint={selectedShow.overview} />}

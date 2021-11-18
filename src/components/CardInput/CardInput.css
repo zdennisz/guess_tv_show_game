@@ -1,6 +1,6 @@
 .card_input {
 	height: 120px;
-	min-width: 120px;
+	min-width: 30vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;

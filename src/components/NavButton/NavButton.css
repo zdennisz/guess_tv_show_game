@@ -1,0 +1,14 @@
+.nav_btn {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 0;
+	background-color: white;
+	width: 4vw;
+	height: 5vh;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.nav_btn_label {
+	font-size: 1rem;
+}

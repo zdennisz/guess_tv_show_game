@@ -1,7 +1,16 @@
 .header_content {
 	font-size: 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .header_container {
 	width: 100%;
+	height: 3vw;
 	background-color: gold;
+}
+.header_content_btn_container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
