@@ -39,7 +39,19 @@
 }
 
 .modal_header {
-	margin: 8 px;
+	margin: 8px;
 	font-size: 2rem;
-	padding: 12 px;
+	padding: 12px;
+}
+
+@media only screen and (max-device-width: 500px) {
+	.modal_button {
+		font-size: 0.5rem;
+	}
+	.modal_body {
+		font-size: 1rem;
+	}
+	.modal_content {
+		width: 80vw;
+	}
 }

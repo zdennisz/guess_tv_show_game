@@ -1,7 +1,6 @@
 .hint_container {
 	display: flex;
 	flex-direction: column;
-
 	max-width: 80vw;
 	box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2);
 	padding: 16px;
@@ -10,4 +9,20 @@
 .hint_icon {
 	color: black;
 	font-size: 1.5rem;
+}
+.hint_text {
+	font-size: 1.5rem;
+}
+
+@media only screen and (max-device-width: 500px) {
+	.hint_icon {
+		font-size: 0.85rem;
+	}
+	.hint_text {
+		font-size: 0.75rem;
+	}
+	.hint_container {
+		max-height: 12vh;
+		overflow: scroll;
+	}
 }

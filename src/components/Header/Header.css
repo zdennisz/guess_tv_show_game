@@ -22,3 +22,9 @@
 .header_content_text {
 	padding-left: 12px;
 }
+
+@media only screen and (max-device-width: 500px) {
+	.header_content {
+		font-size: 0.75rem;
+	}
+}

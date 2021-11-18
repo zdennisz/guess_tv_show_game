@@ -8,3 +8,9 @@
 	letter-spacing: 0.4em;
 	height: 25vh;
 }
+
+@media only screen and (max-device-width: 500px) {
+	.tv_show {
+		font-size: 1.2rem;
+	}
+}
