@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import TvShowName from "./components/TvShowName/TvShowName";
 import useKeyPress from "./components/hooks/useKeyPress";
 import Hint from "./components/Hint/Hint";
 import Statistics from "./components/Statistics/Statistics";
 import CardInput from "./components/CardInput/CardInput";
-import { getMovies, scrambleTvShowName } from "./utils/helper";
+import {
+	getMovies,
+	scrambleTvShowName,
+	saveDataToStorage,
+	loadDataFromStorage,
+} from "./utils/helper";
 import GameOver from "./components/GameOver/GameOver";
 import Button from "./components/Button/Button";
 import { ResponseTvShowInfo, SingleTvShow } from "./utils/types";
@@ -13,9 +18,11 @@ import Header from "./components/Header/Header";
 
 function App() {
 	const keyPress = useKeyPress();
+	const firstInit = useRef(true);
 	const [lifePoints, setLifePoints] = useState(3);
 	const [rightGuesses, setRightGuesses] = useState(0);
 	const [wrongGuesses, setWrongGuesses] = useState(0);
+	const [hintPressedAmount, setHintPressedAmount] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
 	const [selectedShow, setSelectedShow] = useState({ name: "", overview: "" });
 	const [pageNumber, setPageNumber] = useState(1);
@@ -23,7 +30,17 @@ function App() {
 	const [movieList, setMovieList] = useState([]);
 	const [showHint, setShowHint] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const [hintPressedAmount, setHintPressedAmount] = useState(0);
+
+	useEffect(() => {
+		if (firstInit.current === true) {
+			const loadedData = loadDataFromStorage();
+
+			setHintPressedAmount(loadedData.hint);
+			setRightGuesses(loadedData.right);
+			setWrongGuesses(loadedData.wrong);
+			firstInit.current = false;
+		}
+	}, [rightGuesses, wrongGuesses, hintPressedAmount, firstInit]);
 
 	const checkGuessHandler = () => {
 		const isEqualToFullWord = userWord === selectedShow.name;
@@ -31,19 +48,26 @@ function App() {
 			setGameOver(true);
 		} else if (!isEqualToFullWord && lifePoints > 1) {
 			setLifePoints((state) => state - 1);
-			setWrongGuesses((state) => state + 1);
+			setWrongGuesses((state) => {
+				saveDataToStorage(rightGuesses, state + 1, hintPressedAmount);
+				return state + 1;
+			});
 		} else if (isEqualToFullWord) {
-			setRightGuesses((state) => state + 1);
+			setRightGuesses((state) => {
+				saveDataToStorage(state + 1, wrongGuesses, hintPressedAmount);
+
+				return state + 1;
+			});
 		}
 	};
 
 	const restartGameHandler = () => {
 		setGameOver(false);
 		setLifePoints(3);
-		setRightGuesses(0);
 		removeShowFromList(movieList);
 		setUserWord("");
 	};
+
 	const removeShowFromList = (movies: never[]) => {
 		const show = movies.shift();
 		if (show) {
@@ -54,7 +78,10 @@ function App() {
 
 	const showHintHandler = () => {
 		if (!showHint) {
-			setHintPressedAmount((state) => state + 1);
+			setHintPressedAmount((state) => {
+				saveDataToStorage(rightGuesses, wrongGuesses, state + 1);
+				return state + 1;
+			});
 		}
 		setShowHint((state) => !state);
 	};

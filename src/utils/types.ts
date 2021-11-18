@@ -18,3 +18,9 @@ export declare interface SingleTvShow {
 	name: string;
 	overview: string;
 }
+
+export declare interface SessionData {
+	hint: number;
+	right: number;
+	wrong: number;
+}
