@@ -17,6 +17,7 @@ const useKeyPress = (): useKeyPressProps => {
 				e.keyCode === 188 ||
 				e.keyCode === 189 ||
 				e.keyCode === 190 ||
+				e.keyCode === 191 ||
 				e.keyCode === 222 ||
 				e.keyCode === 32 ||
 				(e.keyCode >= 48 && e.keyCode <= 57) ||

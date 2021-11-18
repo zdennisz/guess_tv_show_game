@@ -10,6 +10,7 @@ import {
 	scrambleTvShowName,
 	saveDataToStorage,
 	loadDataFromStorage,
+	wordEqualityChecker,
 } from "./utils/helper";
 import GameOver from "./components/GameOver/GameOver";
 import Button from "./components/Button/Button";
@@ -43,7 +44,7 @@ function App() {
 	}, [rightGuesses, wrongGuesses, hintPressedAmount, firstInit]);
 
 	const checkGuessHandler = () => {
-		const isEqualToFullWord = userWord === selectedShow.name;
+		const isEqualToFullWord = wordEqualityChecker(userWord, selectedShow.name);
 		if (!isEqualToFullWord && lifePoints === 1) {
 			setGameOver(true);
 		} else if (!isEqualToFullWord && lifePoints > 1) {
@@ -58,6 +59,12 @@ function App() {
 
 				return state + 1;
 			});
+			// Get a life point
+			setLifePoints((state) => state + 1);
+
+			// Move to next word
+			removeShowFromList(movieList);
+			setUserWord("");
 		}
 	};
 
