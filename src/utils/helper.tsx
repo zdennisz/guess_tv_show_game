@@ -51,5 +51,14 @@ export const loadDataFromStorage = (): SessionData => {
 };
 
 export const wordEqualityChecker = (userGuess: string, actualWord: string) => {
-	return actualWord.localeCompare(userGuess);
+	if (userGuess.length === actualWord.length) {
+		for (let i = 0; i < actualWord.length; i++) {
+			if (userGuess[i] !== actualWord[i]) {
+				return false;
+			}
+		}
+		return true;
+	} else {
+		return false;
+	}
 };

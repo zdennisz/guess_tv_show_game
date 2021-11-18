@@ -128,6 +128,7 @@ function App() {
 	}, [pageNumber, movieList]);
 
 	useEffect(() => {
+		console.log("movielist", movieList);
 		if (movieList.length > 0) {
 			removeShowFromList(movieList);
 		}
