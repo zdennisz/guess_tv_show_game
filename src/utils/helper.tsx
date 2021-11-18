@@ -51,9 +51,10 @@ export const loadDataFromStorage = (): SessionData => {
 };
 
 export const wordEqualityChecker = (userGuess: string, actualWord: string) => {
-	if (userGuess.length === actualWord.length) {
+	const formattedUserString = userGuess.trim();
+	if (formattedUserString.length === actualWord.length) {
 		for (let i = 0; i < actualWord.length; i++) {
-			if (userGuess[i] !== actualWord[i]) {
+			if (formattedUserString[i] !== actualWord[i]) {
 				return false;
 			}
 		}

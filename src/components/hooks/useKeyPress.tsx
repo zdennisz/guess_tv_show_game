@@ -9,7 +9,6 @@ const useKeyPress = (): useKeyPressProps => {
 
 	useEffect(() => {
 		const upHandler = (e: any) => {
-			console.log("e", e);
 			if (
 				(e.keyCode >= 65 && e.keyCode <= 90) ||
 				e.keyCode === 8 ||

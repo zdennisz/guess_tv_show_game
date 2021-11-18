@@ -28,7 +28,7 @@ function App() {
 	const [selectedShow, setSelectedShow] = useState({ name: "", overview: "" });
 	const [pageNumber, setPageNumber] = useState(1);
 	const [userWord, setUserWord] = useState("");
-	const [movieList, setMovieList] = useState([]);
+	const [movieList, setMovieList] = useState<SingleTvShow[]>([]);
 	const [showHint, setShowHint] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
@@ -56,14 +56,13 @@ function App() {
 		} else if (isEqualToFullWord) {
 			setRightGuesses((state) => {
 				saveDataToStorage(state + 1, wrongGuesses, hintPressedAmount);
-
 				return state + 1;
 			});
 			// Get a life point
 			setLifePoints((state) => state + 1);
 
 			// Move to next word
-			removeShowFromList(movieList);
+			removeFirstShow(movieList);
 			setUserWord("");
 		}
 	};
@@ -71,16 +70,15 @@ function App() {
 	const restartGameHandler = () => {
 		setGameOver(false);
 		setLifePoints(3);
-		removeShowFromList(movieList);
+		removeFirstShow(movieList);
 		setUserWord("");
 	};
 
-	const removeShowFromList = (movies: never[]) => {
-		const show = movies.shift();
-		if (show) {
-			const { name, overview } = show as SingleTvShow;
-			setSelectedShow({ name, overview });
-		}
+	const removeFirstShow = (shows: SingleTvShow[]) => {
+		const allShows: SingleTvShow[] = [...shows];
+		const newShows = allShows.filter((show) => show.name !== allShows[0].name);
+		setSelectedShow({ name: allShows[0].name, overview: allShows[0].overview });
+		setMovieList(newShows);
 	};
 
 	const showHintHandler = () => {
@@ -117,22 +115,16 @@ function App() {
 						overview: movieInfo.overview,
 						name: movieInfo.name,
 					}));
-					setMovieList(filterData);
+					removeFirstShow(filterData);
+
+					// Increment page number
+					setPageNumber((state) => state + 1);
 				})
 				.catch((failed) => {
 					console.error("fail", failed);
 				});
-			// Increment page number
-			setPageNumber((state) => state + 1);
 		}
 	}, [pageNumber, movieList]);
-
-	useEffect(() => {
-		console.log("movielist", movieList);
-		if (movieList.length > 0) {
-			removeShowFromList(movieList);
-		}
-	}, [movieList]);
 
 	return (
 		<div className='App'>
