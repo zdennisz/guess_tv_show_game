@@ -1,14 +1,20 @@
 .nav_btn {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: baseline;
 	border: 0;
-	background-color: white;
-	width: 4vw;
-	height: 5vh;
+	background-color: transparent;
+	width: 100%;
+	padding: 12px;
 	border-radius: 4px;
 	cursor: pointer;
 }
 .nav_btn_label {
-	font-size: 1rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
+.nav_icon {
+	font-size: 1.5rem;
+	margin: 0 8px;
 }

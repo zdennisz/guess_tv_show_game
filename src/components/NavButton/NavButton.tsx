@@ -10,10 +10,8 @@ declare interface NavButtonProps {
 const NavButton = ({ title, icon, onClickHandler }: NavButtonProps) => {
 	return (
 		<button className='nav_btn' onClick={onClickHandler}>
-			<label className='nav_btn_label' onClick={onClickHandler}>
-				{title}
-			</label>
-			<i className={icon} onClick={onClickHandler} />
+			<i className={`${icon} nav_icon`} />
+			<label className='nav_btn_label'>{title}</label>
 		</button>
 	);
 };

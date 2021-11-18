@@ -78,6 +78,7 @@ function App() {
 		const allShows: SingleTvShow[] = [...shows];
 		const newShows = allShows.filter((show) => show.name !== allShows[0].name);
 		setSelectedShow({ name: allShows[0].name, overview: allShows[0].overview });
+
 		setMovieList(newShows);
 	};
 
@@ -146,7 +147,6 @@ function App() {
 								buttonTitle='Check the guess'
 							/>
 						</div>
-						{showHint && <Hint hint={selectedShow.overview} />}
 						{showModal && (
 							<Statistics
 								amountOfRightGusses={rightGuesses}
@@ -156,6 +156,7 @@ function App() {
 							/>
 						)}
 					</div>
+					{showHint && <Hint hint={selectedShow.overview} />}
 				</>
 			)}
 		</div>

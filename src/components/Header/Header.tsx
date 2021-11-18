@@ -13,9 +13,9 @@ const Header = ({
 	statsOnClickHandler,
 }: HeaderProps) => {
 	return (
-		<div className='header_container'>
+		<nav className='header_container'>
 			<div className='header_content'>
-				<div>
+				<div className='header_content_text'>
 					You have <span>{lifePoints} </span>
 					life points left
 				</div>
@@ -32,7 +32,7 @@ const Header = ({
 					/>
 				</div>
 			</div>
-		</div>
+		</nav>
 	);
 };
 

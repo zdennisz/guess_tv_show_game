@@ -1,16 +1,24 @@
 .header_content {
-	font-size: 2rem;
+	font-size: 1.5rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	width: 100%;
 }
 .header_container {
-	width: 100%;
-	height: 3vw;
+	width: 100vw;
+	height: 6vh;
 	background-color: gold;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 }
 .header_content_btn_container {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding-right: 12px;
+}
+.header_content_text {
+	padding-left: 12px;
 }
